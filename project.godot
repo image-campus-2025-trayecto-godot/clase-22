@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="clase-21"
+config/name="clase-22"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -109,3 +109,7 @@ toggle_doom_mode={
 [physics]
 
 3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+limits/cluster_builder/max_clustered_elements=2048.0
