@@ -23,7 +23,6 @@ enum ShootMode {
 @export_category("Weapon")
 @export var weapon_mode: WeaponMode = WeaponMode.SemiAutomatic
 @export var shoot_mode: ShootMode = ShootMode.HITSCAN
-@export var max_recoil_angle: float = PI / 10
 @export var bullet_impulse: float = 100.0
 
 var _mouse_motion: Vector2
@@ -156,4 +155,5 @@ func shoot_weapon():
 				if not hit_scan_ray_cast.get_collision_normal().cross(Vector3.UP).is_zero_approx():
 					bullet_hole_decal.look_at(hit_scan_ray_cast.get_collision_point() + hit_scan_ray_cast.get_collision_normal())
 					bullet_hole_decal.rotate_object_local(Vector3.RIGHT, PI / 2)
+	var max_recoil_angle = weapon_controller.max_recoil_angle
 	camera_pivot_target_rotation_offset = Vector2(randf_range(- max_recoil_angle, max_recoil_angle), randf_range(- max_recoil_angle, max_recoil_angle))

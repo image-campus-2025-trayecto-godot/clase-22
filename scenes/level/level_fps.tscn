@@ -400,8 +400,9 @@ transform = Transform3D(0.99891055, 0.014958843, -0.04421124, -0.010086867, 0.99
 [node name="WeaponController" type="Node3D" parent="PlayerFPS/CameraPivot/PlayerCamera/WeaponPivot"]
 transform = Transform3D(0.99999994, -1.8626451e-09, 3.7252903e-09, -1.8626451e-09, 0.99999994, -2.9802322e-08, -3.7252903e-09, 0, 0.9999999, 0, 0, 0)
 script = ExtResource("5_jwyb7")
-fire_rate = 1.0
+fire_rate = 5.0
 shoot_impulse = 1.0
+max_recoil_angle = 0.314
 
 [node name="WeaponPivotAnimationPlayer" type="AnimationPlayer" parent="PlayerFPS/CameraPivot/PlayerCamera/WeaponPivot"]
 libraries = {
