@@ -383,7 +383,6 @@ script = ExtResource("4_wx0nk")
 transform = Transform3D(0.999909, 0.0005169482, -0.013481079, -0.00080292136, 0.9997746, -0.021216158, 0.013467072, 0.021225054, 0.999684, 0, 0.392731, 0)
 collision_mask = 2147483650
 script = ExtResource("5_scyvi")
-weapon_mode = 0
 
 [node name="CameraPivot" type="Node3D" parent="PlayerFPS"]
 unique_name_in_owner = true
@@ -403,6 +402,7 @@ fire_rate = 5.0
 shoot_impulse = 1.0
 max_recoil_angle = 0.314
 bullet_impulse = 500.0
+weapon_mode = 0
 
 [node name="WeaponPivotAnimationPlayer" type="AnimationPlayer" parent="PlayerFPS/CameraPivot/PlayerCamera/WeaponPivot"]
 libraries = {

@@ -21,7 +21,6 @@ enum ShootMode {
 
 @export_range(0.01, 1.0, 0.01) var mouse_sensitivity: float = 0.15
 @export_category("Weapon")
-@export var weapon_mode: WeaponMode = WeaponMode.SemiAutomatic
 
 
 var _mouse_motion: Vector2
@@ -105,15 +104,15 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_weapon_mode"):
 		_changing_weapon_mode = true
 		weapon_animation_player.play("toggle_weapon")
-		match weapon_mode:
+		match weapon_controller.weapon_mode:
 			WeaponMode.SemiAutomatic:			
-				weapon_mode = WeaponMode.Automatic
+				weapon_controller.weapon_mode = WeaponMode.Automatic
 			WeaponMode.Automatic:
-				weapon_mode = WeaponMode.SemiAutomatic
+				weapon_controller.weapon_mode = WeaponMode.SemiAutomatic
 		await weapon_animation_player.animation_finished
 		_changing_weapon_mode = false
 
-	match weapon_mode:
+	match weapon_controller.weapon_mode:
 		WeaponMode.SemiAutomatic:
 			if Input.is_action_just_pressed("shoot") and can_shoot():
 				shoot_weapon()
