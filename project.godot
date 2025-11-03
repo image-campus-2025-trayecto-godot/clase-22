@@ -112,4 +112,4 @@ toggle_doom_mode={
 
 [rendering]
 
-limits/cluster_builder/max_clustered_elements=2048.0
+limits/cluster_builder/max_clustered_elements=1024.0

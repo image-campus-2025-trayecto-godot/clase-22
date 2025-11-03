@@ -396,7 +396,7 @@ transform = Transform3D(1, 0, 0, 0, 0.9274321, -0.37399158, 0, 0.37399158, 0.927
 current = true
 
 [node name="WeaponPivot" type="Node3D" parent="PlayerFPS/CameraPivot/PlayerCamera"]
-transform = Transform3D(0.99891055, 0.014958848, -0.04421124, -0.010086867, 0.99405277, 0.108434185, 0.045570325, -0.10787002, 0.99312073, 0.15790828, -0.28491816, -0.28577396)
+transform = Transform3D(0.99891055, 0.0149588445, -0.04421124, -0.010086867, 0.9940525, 0.108434185, 0.045570325, -0.10787, 0.99312073, 0.15790828, -0.28491816, -0.28577396)
 
 [node name="WeaponPivotAnimationPlayer" type="AnimationPlayer" parent="PlayerFPS/CameraPivot/PlayerCamera/WeaponPivot"]
 libraries = {
@@ -532,3 +532,5 @@ render_target_update_mode = 4
 
 [node name="Node3D" parent="HUD/SubViewportContainer/SubViewport" instance=ExtResource("9_ennbq")]
 visible = false
+
+[editable path="PlayerFPS/CameraPivot/PlayerCamera/WeaponPivot/blaster-g2"]
