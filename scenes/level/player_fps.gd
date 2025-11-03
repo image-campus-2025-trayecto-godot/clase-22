@@ -23,7 +23,6 @@ enum ShootMode {
 @export_category("Weapon")
 @export var weapon_mode: WeaponMode = WeaponMode.SemiAutomatic
 @export var shoot_mode: ShootMode = ShootMode.HITSCAN
-@export var bullet_impulse: float = 100.0
 
 var _mouse_motion: Vector2
 var movement_enabled: bool = true
@@ -136,10 +135,10 @@ func shoot_weapon():
 		ShootMode.RIGID_BODY:
 			var bullet: RigidBody3D = BULLET_RIGID_BODY.instantiate()
 			get_parent().add_child(bullet)
-			var target_position = camera_3d.global_position - camera_3d.global_basis.z * bullet_impulse
+			var target_position = camera_3d.global_position - camera_3d.global_basis.z * weapon_controller.bullet_impulse
 			bullet.global_position = bullet_spawn_point.global_position
 			bullet.look_at(target_position)
-			bullet.apply_central_impulse(bullet.global_position.direction_to(target_position) * bullet_impulse)
+			bullet.apply_central_impulse(bullet.global_position.direction_to(target_position) * weapon_controller.bullet_impulse)
 		ShootMode.HITSCAN:
 			if hit_scan_ray_cast.is_colliding():
 				var collider = hit_scan_ray_cast.get_collider()
