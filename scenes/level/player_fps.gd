@@ -22,9 +22,7 @@ enum ShootMode {
 @export_range(0.01, 1.0, 0.01) var mouse_sensitivity: float = 0.15
 @export_category("Weapon")
 @export var weapon_mode: WeaponMode = WeaponMode.SemiAutomatic
-
 @export var shoot_mode: ShootMode = ShootMode.HITSCAN
-@export var shoot_impulse: float = 20.0
 @export var max_recoil_angle: float = PI / 10
 @export var bullet_impulse: float = 100.0
 
@@ -148,7 +146,7 @@ func shoot_weapon():
 				var collider = hit_scan_ray_cast.get_collider()
 				if collider is RigidBody3D:
 					collider.apply_impulse(
-						-hit_scan_ray_cast.global_basis.z * shoot_impulse,
+						-hit_scan_ray_cast.global_basis.z * weapon_controller.shoot_impulse,
 						hit_scan_ray_cast.get_collision_point() - collider.global_position
 						)
 				var bullet_hole_decal: Node3D = BULLET_HOLE_DECAL.instantiate()
