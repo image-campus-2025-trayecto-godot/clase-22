@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=3 format=3 uid="uid://bm70emeb546tg"]
+
+[ext_resource type="Script" uid="uid://ditvf0x5vnaki" path="res://scenes/player/weapon/weapon.gd" id="1_2mq6t"]
+[ext_resource type="PackedScene" uid="uid://ch5bdlxicr8uq" path="res://scenes/player/weapon/weapons/sniper.tscn" id="2_ops5u"]
+
+[resource]
+script = ExtResource("1_2mq6t")
+fire_rate = 0.25
+shoot_impulse = 200.0
+max_recoil_angle = 0.628
+bullet_impulse = 500.0
+weapon_model = ExtResource("2_ops5u")
+metadata/_custom_type_script = "uid://ditvf0x5vnaki"

@@ -31,10 +31,11 @@ var movement_enabled: bool = true
 @onready var camera_animation_player: AnimationPlayer = $CameraAnimationPlayer
 @onready var camera_3d_original_fov: float = camera_3d.fov
 @onready var camera_pivot: Node3D = %CameraPivot
-@onready var weapon_animation_player: AnimationPlayer = $"CameraPivot/PlayerCamera/WeaponPivot/blaster-g2/AnimationPlayer"
+#@onready var weapon_animation_player: AnimationPlayer = $CameraPivot/PlayerCamera/WeaponPivot/WeaponModel/AnimationPlayer
 @onready var camera_pivot_target_rotation_offset: Vector2
 @onready var weapon_pivot_animation_player: AnimationPlayer = $CameraPivot/PlayerCamera/WeaponPivot/WeaponPivotAnimationPlayer
 @onready var weapon_controller: WeaponController = $CameraPivot/PlayerCamera/WeaponPivot/WeaponController
+@onready var weapon_model: Node3D = $CameraPivot/PlayerCamera/WeaponPivot/WeaponModel
 
 var _time_until_can_shoot: float = 0.0
 var _changing_weapon_mode: bool = false
@@ -47,6 +48,11 @@ var _changing_weapon_mode: bool = false
 # - recoil
 
 # TODO: particulas de impacto
+
+func _ready() -> void:
+	weapon_controller.weapon_model_changed.connect(func(new_model):
+		weapon_model = new_model
+	)
 
 func can_shoot() -> bool:
 	return _time_until_can_shoot <= 0.0 and not _changing_weapon_mode
@@ -103,13 +109,12 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("toggle_weapon_mode"):
 		_changing_weapon_mode = true
-		weapon_animation_player.play("toggle_weapon")
 		match weapon_controller.weapon_mode:
 			WeaponMode.SemiAutomatic:			
 				weapon_controller.weapon_mode = WeaponMode.Automatic
 			WeaponMode.Automatic:
 				weapon_controller.weapon_mode = WeaponMode.SemiAutomatic
-		await weapon_animation_player.animation_finished
+		await weapon_model.play_toggle_weapon_animation()
 		_changing_weapon_mode = false
 
 	match weapon_controller.weapon_mode:
@@ -129,15 +134,15 @@ func _physics_process(delta: float) -> void:
 
 func shoot_weapon():
 	_time_until_can_shoot = 1.0 / weapon_controller.fire_rate()
-	weapon_animation_player.play("shoot")
-	match weapon_controller.shoot_mode:
+	weapon_model.play_shoot_animation()
+	match weapon_controller.shoot_mode():
 		ShootMode.RIGID_BODY:
 			var bullet: RigidBody3D = BULLET_RIGID_BODY.instantiate()
 			get_parent().add_child(bullet)
-			var target_position = camera_3d.global_position - camera_3d.global_basis.z * weapon_controller.bullet_impulse
+			var target_position = camera_3d.global_position - camera_3d.global_basis.z * weapon_controller.bullet_impulse()
 			bullet.global_position = bullet_spawn_point.global_position
 			bullet.look_at(target_position)
-			bullet.apply_central_impulse(bullet.global_position.direction_to(target_position) * weapon_controller.bullet_impulse)
+			bullet.apply_central_impulse(bullet.global_position.direction_to(target_position) * weapon_controller.bullet_impulse())
 		ShootMode.HITSCAN:
 			if hit_scan_ray_cast.is_colliding():
 				var collider = hit_scan_ray_cast.get_collider()
@@ -153,5 +158,5 @@ func shoot_weapon():
 				if not hit_scan_ray_cast.get_collision_normal().cross(Vector3.UP).is_zero_approx():
 					bullet_hole_decal.look_at(hit_scan_ray_cast.get_collision_point() + hit_scan_ray_cast.get_collision_normal())
 					bullet_hole_decal.rotate_object_local(Vector3.RIGHT, PI / 2)
-	var max_recoil_angle = weapon_controller.max_recoil_angle
+	var max_recoil_angle = weapon_controller.max_recoil_angle()
 	camera_pivot_target_rotation_offset = Vector2(randf_range(- max_recoil_angle, max_recoil_angle), randf_range(- max_recoil_angle, max_recoil_angle))
