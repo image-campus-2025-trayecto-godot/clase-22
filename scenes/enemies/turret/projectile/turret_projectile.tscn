@@ -1,0 +1,106 @@
+[gd_scene load_steps=13 format=3 uid="uid://563ue053bg5k"]
+
+[ext_resource type="Script" uid="uid://b0yj2o1fbyhll" path="res://scenes/enemies/turret/projectile/turret_projectile.gd" id="1_kj1al"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e2qop"]
+emission_enabled = true
+emission = Color(1, 1, 0, 1)
+emission_energy_multiplier = 25.0
+
+[sub_resource type="Curve" id="Curve_kj1al"]
+_data = [Vector2(0.008595988, 0), 0.0, 0.0, 0, 0, Vector2(0.28080225, 0.3617381), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_nrpbb"]
+curve = SubResource("Curve_kj1al")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nrpbb"]
+emission_shape = 1
+emission_sphere_radius = 0.75
+gravity = Vector3(0, 0.5, 0)
+scale_curve = SubResource("CurveTexture_nrpbb")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kj1al"]
+emission_enabled = true
+emission = Color(1, 1, 0, 1)
+emission_energy_multiplier = 25.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_nrpbb"]
+material = SubResource("StandardMaterial3D_kj1al")
+radius = 0.25
+height = 0.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kj1al"]
+radius = 0.25
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_nrpbb"]
+radius = 0.1
+
+[sub_resource type="Animation" id="Animation_kj1al"]
+resource_name = "spawn"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(3, 3, 1), Vector3(1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_nrpbb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_athr7"]
+_data = {
+&"RESET": SubResource("Animation_nrpbb"),
+&"spawn": SubResource("Animation_kj1al")
+}
+
+[node name="TurretProjectile" type="Node3D"]
+script = ExtResource("1_kj1al")
+
+[node name="Model" type="CSGSphere3D" parent="."]
+radius = 0.25
+material = SubResource("StandardMaterial3D_e2qop")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 10
+speed_scale = 1.5
+process_material = SubResource("ParticleProcessMaterial_nrpbb")
+draw_pass_1 = SubResource("SphereMesh_nrpbb")
+
+[node name="HitBox" type="Area3D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
+shape = SubResource("SphereShape3D_kj1al")
+
+[node name="TerrainCollision" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2147483648
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TerrainCollision"]
+shape = SubResource("SphereShape3D_nrpbb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_athr7")
+}
+autoplay = "spawn"

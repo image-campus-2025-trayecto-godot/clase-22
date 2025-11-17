@@ -125,7 +125,7 @@ func evaluate_current_prompt():
 
 
 func evaluate_expression(a_prompt):
-	var evaluation = execute(a_prompt)
+	var evaluation = await execute(a_prompt)
 
 	evaluation.print()
 	evaluation.write_in(rich_text_label)
@@ -154,7 +154,7 @@ func execute(a_prompt):
 			Evaluation.Failure
 		)
 
-	return RuakeExpression.for_prompt(object, a_prompt).execute_in(self)
+	return await RuakeExpression.for_prompt(object, a_prompt).execute_in(self)
 
 
 func _on_LineEdit_text_changed(new_text):
@@ -225,7 +225,7 @@ class RuakeReassignment:
 	func execute_in(ruake) -> Evaluation:
 		var evaluation_result
 		if ruake.has_variable(variable_name):
-			evaluation_result = RuakeGodotExpression.new(object, result_expression_prompt).execute_in(
+			evaluation_result = await RuakeGodotExpression.new(object, result_expression_prompt).execute_in(
 				ruake
 			)
 			if (
@@ -236,7 +236,7 @@ class RuakeReassignment:
 					variable_name, evaluation_result.result_value
 				)
 		elif variable_name in object:
-			evaluation_result = RuakeGodotExpression.new(object, result_expression_prompt).execute_in(
+			evaluation_result = await RuakeGodotExpression.new(object, result_expression_prompt).execute_in(
 				ruake
 			)
 			if (
@@ -275,7 +275,7 @@ class RuakeAssignment:
 		original_prompt = _original_prompt
 
 	func execute_in(ruake) -> Evaluation:
-		var evaluation_result = RuakeGodotExpression.new(object, result_expression_prompt).execute_in(
+		var evaluation_result = await RuakeGodotExpression.new(object, result_expression_prompt).execute_in(
 			ruake
 		)
 		if (
@@ -310,7 +310,7 @@ class RuakeGodotExpression:
 			result_value = expression.get_error_text()
 			result_success_state = Evaluation.Failure
 		else:
-			var execution_result = expression.execute(
+			var execution_result = await expression.execute(
 				ruake.variables_values(), object, true
 			)
 			if expression.has_execute_failed():

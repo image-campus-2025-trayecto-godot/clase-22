@@ -8,9 +8,14 @@
 
 config_version=5
 
+[addons]
+
+ruake/layer=10
+
 [application]
 
 config/name="clase-22"
+run/main_scene="uid://d32go3mt62d31"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -25,7 +30,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/input-overlay/plugin.cfg", "res://addons/ruake/plugin.cfg", "res://addons/slides/plugin.cfg")
+enabled=PackedStringArray("res://addons/anim_player_refactor/plugin.cfg", "res://addons/input-overlay/plugin.cfg", "res://addons/ruake/plugin.cfg", "res://addons/slides/plugin.cfg")
 
 [input]
 

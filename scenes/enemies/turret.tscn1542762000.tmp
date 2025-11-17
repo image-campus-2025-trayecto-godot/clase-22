@@ -1,0 +1,521 @@
+[gd_scene load_steps=32 format=3 uid="uid://c1y8ubxu4xr77"]
+
+[ext_resource type="Script" uid="uid://dtxrdsxtlalvq" path="res://scenes/enemies/turret.gd" id="1_oabpu"]
+[ext_resource type="PackedScene" uid="uid://bweecnrxywxoj" path="res://assets/kenney_blaster-kit_2.1/Models/GLB format/target-large.glb" id="2_ecoe6"]
+[ext_resource type="Script" uid="uid://5i8wffquxux1" path="res://scenes/enemies/face.gd" id="2_wqsho"]
+[ext_resource type="PackedScene" uid="uid://dpxotkrcjcax8" path="res://scenes/enemies/turret/weapon/weapon.tscn" id="3_0w8p4"]
+[ext_resource type="PackedScene" uid="uid://b7ptlwbtbdvf2" path="res://assets/kenney_mini-dungeon/Models/GLB format/chest.glb" id="3_ecoe6"]
+[ext_resource type="PackedScene" uid="uid://dokgbuskthqii" path="res://assets/kenney_mini-dungeon/Models/GLB format/column.glb" id="4_ue2uv"]
+
+[sub_resource type="Gradient" id="Gradient_oabpu"]
+offsets = PackedFloat32Array(0, 0.46067417, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 0.2784314, 1, 1, 0.7104008, 0.20858765, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wqsho"]
+gradient = SubResource("Gradient_oabpu")
+
+[sub_resource type="Gradient" id="Gradient_ue2uv"]
+offsets = PackedFloat32Array(0.56554306, 1)
+colors = PackedColorArray(1, 1, 1, 0.70980394, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_oabpu"]
+gradient = SubResource("Gradient_ue2uv")
+
+[sub_resource type="Curve" id="Curve_ue2uv"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 0.43871868), 0.0, 0.0, 0, 0, Vector2(0.22184299, 1.4247909), -1.8085268, -1.8085268, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_oabpu"]
+curve = SubResource("Curve_ue2uv")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ue2uv"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 0.25
+angle_min = -720.0
+angle_max = 720.0
+gravity = Vector3(0, 2, 0)
+tangential_accel_min = -2.2351742e-06
+tangential_accel_max = -2.2351742e-06
+scale_min = 0.19999999
+scale_max = 0.39999998
+scale_curve = SubResource("CurveTexture_oabpu")
+color = Color(1, 0, 1, 1)
+color_ramp = SubResource("GradientTexture1D_oabpu")
+color_initial_ramp = SubResource("GradientTexture1D_wqsho")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oabpu"]
+transparency = 1
+cull_mode = 2
+vertex_color_use_as_albedo = true
+emission_enabled = true
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_wqsho"]
+material = SubResource("StandardMaterial3D_oabpu")
+
+[sub_resource type="Gradient" id="Gradient_wqsho"]
+offsets = PackedFloat32Array(0, 0.46067417, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 0.2784314, 1, 1, 0.7104008, 0.20858765, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0w8p4"]
+gradient = SubResource("Gradient_wqsho")
+
+[sub_resource type="Gradient" id="Gradient_w2i2w"]
+offsets = PackedFloat32Array(0.56554306, 1)
+colors = PackedColorArray(1, 1, 1, 0.70980394, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_d5tah"]
+gradient = SubResource("Gradient_w2i2w")
+
+[sub_resource type="Curve" id="Curve_kr03i"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 0.43871868), 0.0, 0.0, 0, 0, Vector2(0.22184299, 1.4247909), -1.8085268, -1.8085268, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_0rpki"]
+curve = SubResource("Curve_kr03i")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_c7ilg"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 0.25
+angle_min = -720.0
+angle_max = 720.0
+gravity = Vector3(0, 2, 0)
+tangential_accel_min = -2.2351742e-06
+tangential_accel_max = -2.2351742e-06
+scale_min = 0.19999999
+scale_max = 0.39999998
+scale_curve = SubResource("CurveTexture_0rpki")
+color = Color(1, 0, 0, 1)
+color_ramp = SubResource("GradientTexture1D_d5tah")
+color_initial_ramp = SubResource("GradientTexture1D_0w8p4")
+
+[sub_resource type="Curve" id="Curve_oabpu"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.20477816, 0.31197774), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.1975271, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_wqsho"]
+curve = SubResource("Curve_oabpu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_oabpu"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 0.0
+emission_ring_radius = 0.4
+emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
+gravity = Vector3(0, 2, 0)
+tangential_accel_min = -5.000002
+tangential_accel_max = 4.9999976
+damping_max = 5.0
+scale_curve = SubResource("CurveTexture_wqsho")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wqsho"]
+albedo_color = Color(0, 0, 0, 1)
+billboard_mode = 1
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_0w8p4"]
+material = SubResource("StandardMaterial3D_wqsho")
+size = Vector2(0.2, 0.2)
+
+[sub_resource type="Animation" id="Animation_oabpu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FacePivot/Face/Weapon1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.00078603625, -0.1005131, -0.30190757)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FacePivot/Face/Weapon2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.1660851, -0.085223556, -0.30417818)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FacePivot/Face/Weapon3:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.16436514, -0.07263529, -0.3060476)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("FacePivot/Face/Weapon4:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.30997193, -0.010083199, -0.3153369)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("FacePivot/Face/Weapon5:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.33071864, -0.035685062, -0.31153488)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("FacePivot/Face/Weapon1:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.14742796, 0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("FacePivot/Face/Weapon2:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.14742795, -2.7090379e-09, 0.15763815)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("FacePivot/Face/Weapon3:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.14742796, 0, -0.33372438)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("FacePivot/Face/Weapon4:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.14742796, 0, -0.4803495)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("FacePivot/Face/Weapon5:rotation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.14742796, 0, 0.3516663)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("FacePivot/Face/ParticlesAggresive:emitting")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("FacePivot/Face/ParticlesIdle:emitting")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_ue2uv"]
+resource_name = "idle"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FacePivot:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.1, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wqsho"]
+resource_name = "aggresive"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FacePivot/Face/Weapon1:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.00078603625, -0.1005131, -0.30190757), Vector3(0.00078603625, -0.18016279, -0.47828367)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("FacePivot/Face/Weapon2:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.1660851, -0.085223556, -0.30417818), Vector3(0.26658574, 0.8868191, -0.30417818)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FacePivot/Face/Weapon3:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.16436514, -0.07263529, -0.3060476), Vector3(-0.24494122, 0.87834334, -0.3060476)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("FacePivot/Face/Weapon4:position")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.30997193, -0.010083199, -0.3153369), Vector3(-0.65340996, 0.43212676, -0.3153369)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("FacePivot/Face/Weapon5:position")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.33071864, -0.035685062, -0.31153488), Vector3(0.6477165, 0.37406754, -0.31153476)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("FacePivot/Face/Weapon1:rotation")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.14742796, 0, 0), Vector3(0.21176076, 0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("FacePivot/Face/Weapon2:rotation")
+tracks/6/interp = 2
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.14742795, -2.7090379e-09, 0.15763815), Vector3(-0.49169418, 0.284541, 0.15763816)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("FacePivot/Face/Weapon3:rotation")
+tracks/7/interp = 2
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.14742796, 0, -0.33372438), Vector3(-0.6284323, -0.15029629, -0.10414734)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("FacePivot/Face/Weapon4:rotation")
+tracks/8/interp = 2
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.14742796, 0, -0.4803495), Vector3(-0.316678, -0.43308452, -0.4019759)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("FacePivot/Face/Weapon5:rotation")
+tracks/9/interp = 2
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.14742796, 0, 0.3516663), Vector3(-0.15501808, 0.56433845, 0.08930649)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("FacePivot/Face/ParticlesAggresive:emitting")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.033333335),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("FacePivot/Face/ParticlesIdle:emitting")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oabpu"]
+_data = {
+&"RESET": SubResource("Animation_oabpu"),
+&"idle": SubResource("Animation_ue2uv"),
+&"switch_to_aggresive": SubResource("Animation_wqsho")
+}
+
+[node name="Turret" type="Node3D"]
+script = ExtResource("1_oabpu")
+weapons_track_target = true
+
+[node name="FacePivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.028719835, 0)
+
+[node name="Face" type="Node3D" parent="FacePivot"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3090675, 0)
+script = ExtResource("2_wqsho")
+
+[node name="Weapon1" parent="FacePivot/Face" instance=ExtResource("3_0w8p4")]
+transform = Transform3D(1, 0, 0, 0, 0.9891522, 0.14689448, 0, -0.14689448, 0.9891522, 0.00078603625, -0.1005131, -0.30190757)
+
+[node name="Weapon2" parent="FacePivot/Face" instance=ExtResource("3_0w8p4")]
+transform = Transform3D(0.9876005, -0.15698607, -2.6796507e-09, 0.15528308, 0.9768875, 0.14689447, -0.023060376, -0.1450731, 0.9891522, 0.1660851, -0.085223556, -0.30417818)
+
+[node name="Weapon3" parent="FacePivot/Face" instance=ExtResource("3_0w8p4")]
+transform = Transform3D(0.9448289, 0.32756418, 0, -0.32401082, 0.9345796, 0.14689448, 0.048117373, -0.13879016, 0.9891522, -0.16436514, -0.07263529, -0.3060476)
+
+[node name="Weapon4" parent="FacePivot/Face" instance=ExtResource("3_0w8p4")]
+transform = Transform3D(0.8868335, 0.46208915, 0, -0.4570765, 0.8772133, 0.14689448, 0.06787835, -0.13027094, 0.9891522, -0.30997193, -0.010083199, -0.3153369)
+
+[node name="Weapon5" parent="FacePivot/Face" instance=ExtResource("3_0w8p4")]
+transform = Transform3D(0.93880004, -0.3444626, 0, 0.34072593, 0.9286161, 0.14689448, -0.050599657, -0.13790455, 0.9891522, 0.33071864, -0.035685062, -0.31153488)
+
+[node name="Eyes" type="Node3D" parent="FacePivot/Face"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0050145388, -0.11248386, -0.0811452)
+
+[node name="target-large2" parent="FacePivot/Face/Eyes" instance=ExtResource("2_ecoe6")]
+transform = Transform3D(-6.556708e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.556708e-08, 0.27608782, 0.60371006, -1.6391277e-07)
+
+[node name="target-large3" parent="FacePivot/Face/Eyes" instance=ExtResource("2_ecoe6")]
+transform = Transform3D(-6.556708e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.556708e-08, -0.30325067, 0.59682226, -2.9802322e-08)
+
+[node name="ParticlesIdle" type="GPUParticles3D" parent="FacePivot/Face"]
+amount = 30
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_ue2uv")
+draw_pass_1 = SubResource("QuadMesh_wqsho")
+
+[node name="ParticlesAggresive" type="GPUParticles3D" parent="FacePivot/Face"]
+emitting = false
+amount = 30
+lifetime = 2.0
+speed_scale = 2.5
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_c7ilg")
+draw_pass_1 = SubResource("QuadMesh_wqsho")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="FacePivot/Face"]
+transform = Transform3D(1, 0, 0, 0, 0.05725037, -0.99835986, 0, 0.99835986, 0.05725037, 0, 0, 0)
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_oabpu")
+draw_pass_1 = SubResource("QuadMesh_0w8p4")
+
+[node name="chest2" parent="." instance=ExtResource("3_ecoe6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9542196, 0)
+visible = false
+
+[node name="column2" parent="." instance=ExtResource("4_ue2uv")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_oabpu")
+}
+autoplay = "idle"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="ShootSpawnPosition" type="Marker3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4745421, -0.24638116)

@@ -1,7 +1,9 @@
+class_name Player
 extends CharacterBody3D
 
 const BULLET_HOLE_DECAL = preload("uid://bt2tprq6f1rre")
 const BULLET_RIGID_BODY = preload("uid://bwb8kiif8akov")
+const MAX_HP = 100.0
 
 enum WeaponMode {
 	Automatic,
@@ -18,6 +20,8 @@ enum ShootMode {
 @export var SPEED: float = 5.0
 @export var SPRINT_SPEED: float = 8.0
 @export var JUMP_VELOCITY: float = 4.5
+@export var time_without_hits_until_hp_regeneration: float = 4.0
+@export var regeneration_speed: float = 5.0
 
 @export_range(0.01, 1.0, 0.01) var mouse_sensitivity: float = 0.15
 @export_category("Weapon")
@@ -36,18 +40,22 @@ var movement_enabled: bool = true
 @onready var weapon_pivot_animation_player: AnimationPlayer = $CameraPivot/PlayerCamera/WeaponPivot/WeaponPivotAnimationPlayer
 @onready var weapon_controller: WeaponController = $CameraPivot/PlayerCamera/WeaponPivot/WeaponController
 @onready var weapon_model: Node3D = $CameraPivot/PlayerCamera/WeaponPivot/WeaponModel
+@onready var hp := MAX_HP :
+	set(new_value):
+		hp = new_value
+		hp_changed.emit(hp)
+var time_since_last_hit: float = 0.0
+
+
+signal hp_changed(new_hp)
 
 var _time_until_can_shoot: float = 0.0
 var _changing_weapon_mode: bool = false
 
-# TODO: disparo automatico / semi-automatico
-
-# TODO: camara un poco mas divertida:
-# - movimiento al caminar
-# - efecto de velocidad al correr
-# - recoil
-
-# TODO: particulas de impacto
+func get_hit():
+	time_since_last_hit = 0.0
+	self.hp -= 30.0
+	camera_pivot_target_rotation_offset += Vector2(randf_range(PI / 4, PI / 2), 0.0)
 
 func _ready() -> void:
 	weapon_controller.weapon_model_changed.connect(func(new_model):
@@ -64,11 +72,19 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	if not movement_enabled:
 		return
+	
+	time_since_last_hit += delta
+	
+	if time_since_last_hit > time_without_hits_until_hp_regeneration:
+		self.hp = move_toward(hp, MAX_HP, delta * regeneration_speed)
 
 	_time_until_can_shoot -= delta
 
-	global_rotation.y += -_mouse_motion.x * delta
-	camera_3d.global_rotation.x += -_mouse_motion.y * delta
+	camera_3d.rotation = Vector3(
+		camera_3d.rotation.x -_mouse_motion.y * delta,
+		camera_3d.rotation.y - _mouse_motion.x * delta,
+		0.0
+	)
 	camera_3d.global_rotation.x = clampf(camera_3d.global_rotation.x, - PI / 3, PI / 4)
 	_mouse_motion = Vector2.ZERO
 	
@@ -79,7 +95,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var direction := (camera_3d.global_basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	var is_sprinting: bool = Input.is_action_pressed("sprint")
 	var current_speed := SPRINT_SPEED if is_sprinting else SPEED
 	if direction:
@@ -127,8 +143,9 @@ func _physics_process(delta: float) -> void:
 
 	camera_pivot_target_rotation_offset = camera_pivot_target_rotation_offset.lerp(Vector2.ZERO, 1 - pow(0.001, delta))
 	
-	camera_pivot.rotation.x = lerp(camera_pivot.rotation.x, camera_pivot_target_rotation_offset.x, 1 - pow(0.001, delta))
-	camera_pivot.rotation.y = lerp(camera_pivot.rotation.y, camera_pivot_target_rotation_offset.y, 1 - pow(0.001, delta))
+	var target_quat := Quaternion.from_euler(Vector3(camera_pivot_target_rotation_offset.x, camera_pivot_target_rotation_offset.y, 0.0))
+	var current_quat := Quaternion.from_euler(camera_pivot.rotation)
+	camera_pivot.rotation = current_quat.slerp(target_quat, 1 - pow(0.001, delta)).get_euler()
 
 	move_and_slide()
 
